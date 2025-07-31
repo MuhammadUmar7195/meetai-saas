@@ -1,4 +1,4 @@
-import HomeView from "../modules/home/ui/views/homeview";
+import HomeView from "../../modules/home/ui/views/homeview";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";

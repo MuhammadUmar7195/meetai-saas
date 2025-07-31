@@ -234,7 +234,7 @@ export const SignUpView = () => {
           </div>
 
           {/* Right: Logo and Paragraph */}
-          <div className="bg-gradient-to-br from-green-700 to-green-900 relative hidden md:flex flex-col gap-y-4 items-center justify-center">
+          <div className="bg-gradient-to-br from-sidebar-accent to-sidebar relative hidden md:flex flex-col gap-y-4 items-center justify-center">
             <Image
               src="/logo.svg"
               alt="Logo"
@@ -246,6 +246,10 @@ export const SignUpView = () => {
           </div>
         </CardContent>
       </Card>
+
+      <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:hover:underline *:[a]:hover:underline-offset-4">
+        By clicking continue, you agree to our <a href="#">Term of Service</a> and <a href="#">Privacy Policy</a>.
+      </div>
     </div>
   );
 };
