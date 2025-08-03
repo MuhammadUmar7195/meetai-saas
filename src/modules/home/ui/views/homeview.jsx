@@ -11,8 +11,6 @@ const HomeView = () => {
   if (!session) {
     return <p>Loading...</p>;
   }
-  console.log("Session data:", session);
-  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
