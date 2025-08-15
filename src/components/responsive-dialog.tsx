@@ -29,23 +29,25 @@ interface ResponsiveDialogProps {
     onOpenChange: (open: boolean) => void
 }
 
-const ResponsiveDialog = ({ title, description, children, open, onOpenChange }: ResponsiveDialogProps) => {
+export const ResponsiveDialog = ({ title, description, children, open, onOpenChange }: ResponsiveDialogProps) => {
     const isMobile = useIsMobile();
 
     if (isMobile) {
-        <>
-            <Drawer open={open} onOpenChange={onOpenChange}>
-                <DrawerContent>
-                    <DrawerHeader>
-                        <DrawerTitle>{title}</DrawerTitle>
-                        <DrawerDescription>{description}</DrawerDescription>
-                    </DrawerHeader>
-                    <div className={`p-4`}>
-                        {children}
-                    </div>
-                </DrawerContent>
-            </Drawer>
-        </>
+        return (
+            <>
+                <Drawer open={open} onOpenChange={onOpenChange}>
+                    <DrawerContent>
+                        <DrawerHeader>
+                            <DrawerTitle>{title}</DrawerTitle>
+                            <DrawerDescription>{description}</DrawerDescription>
+                        </DrawerHeader>
+                        <div className={`p-4`}>
+                            {children}
+                        </div>
+                    </DrawerContent>
+                </Drawer>
+            </>
+        )
     }
     return (
         <>
@@ -62,4 +64,3 @@ const ResponsiveDialog = ({ title, description, children, open, onOpenChange }: 
     )
 }
 
-export default ResponsiveDialog
