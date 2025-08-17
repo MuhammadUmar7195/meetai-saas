@@ -37,7 +37,7 @@ export const AgentForm = ({ onSuccess, onCancel, initialValues }: AgentFormProps
         trpc.agents.create.mutationOptions({
             onSuccess: async () => {
                 await queryClient.invalidateQueries(
-                    trpc.agents.getMany.queryOptions(),
+                    trpc.agents.getMany.queryOptions({}),
                 );
 
                 if(initialValues?.id) {
@@ -49,7 +49,6 @@ export const AgentForm = ({ onSuccess, onCancel, initialValues }: AgentFormProps
             },
             onError: (error) => { 
                 toast.error(`${error.message}`);
-
                 // If Error code is Forbidden then we upgrade the plan in future.`
             }
         })

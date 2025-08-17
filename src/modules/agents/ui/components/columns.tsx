@@ -34,7 +34,7 @@ export const columns: ColumnDef<AgentRouterOutputs>[] = [
         cell: ({ row }) => (
             <Badge variant="outline">
                 <VideoIcon className="text-blue-700"/>
-                {row.original.meetingCount} 5 meetings      
+                {row.original.meetingCount} {row.original.meetingCount === 1 ? "meeting" : "meetings"}
             </Badge>
         )
     }
