@@ -3,7 +3,7 @@ import { db } from "@/db";
 
 import { agents } from "@/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
-import { agentSchema } from "../schema";
+import { agentSchema, agentUpdateSchema } from "../schema";
 import { and, count, desc, eq, getTableColumns, ilike, sql } from "drizzle-orm";
 
 import {
@@ -15,6 +15,39 @@ import {
 import { TRPCError } from "@trpc/server";
 
 export const agentsRouter = createTRPCRouter({
+  //For update the agent
+  update: protectedProcedure
+    .input(agentUpdateSchema)
+    .mutation(async ({ input, ctx }) => {
+      const [updatedAgent] = await db
+        .update(agents)
+        .set(input)
+        .where(
+          and(eq(agents.id, input.id), eq(agents.userId, ctx.auth.user.id))
+        )
+        .returning();
+
+      if (!updatedAgent) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Agent not found" });
+      }
+
+      return updatedAgent;
+    }),
+  //TODO: remove an agent, we need to implement a delete protectedProcedure
+  remove: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const [removeAgent] = await db
+        .delete(agents)
+        .where(
+          and(eq(agents.id, input.id), eq(agents.userId, ctx.auth.user.id))
+        )
+        .returning();
+      if (!removeAgent) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Agent not found" });
+      }
+      return removeAgent;
+    }),
   //TODO: Change `getOne` to use `protectedProcedure`
   getOne: protectedProcedure
     .input(z.object({ id: z.string() }))
@@ -76,14 +109,14 @@ export const agentsRouter = createTRPCRouter({
             search ? ilike(agents.name, `%${search}%`) : undefined
           )
         );
-      
+
       const totalPage = Math.ceil(total.count / pageSize);
 
       return {
-        items: data, 
+        items: data,
         total: total.count,
-        totalPage
-      }
+        totalPage,
+      };
     }),
   create: protectedProcedure
     .input(agentSchema)

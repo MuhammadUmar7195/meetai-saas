@@ -1,10 +1,16 @@
-import zod from "zod";
+import { z } from "zod";
 
-export const agentSchema = zod.object({
-  name: zod.string().min(1, {
+export const agentSchema = z.object({
+  name: z.string().min(1, {
     message: "Name is required",
   }),
-  instructions: zod.string().min(1, {
+  instructions: z.string().min(1, {
     message: "Instructions are required",
+  }),
+});
+
+export const agentUpdateSchema = agentSchema.extend({
+  id: z.string().min(1, {
+    message: "ID is required",
   }),
 });
