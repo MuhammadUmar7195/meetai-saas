@@ -3,15 +3,17 @@
 import { ErrorState } from "@/components/error-state";
 import { LoadingStates } from "@/components/loading-states";
 import { useTRPC } from "@/trpc/client";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const MeetingView = () => {
     const trpc = useTRPC();
     const { data } = useSuspenseQuery(trpc.meetings.getMany.queryOptions({}));
-    
+
     return (
-        <div>
-            {JSON.stringify(data)}
+        <div className="flex flex-col gap-y-4 p-4 overflow-auto">
+            <pre className="whitespace-pre-wrap break-words">
+                {JSON.stringify(data, null, 2)}
+            </pre>
         </div>
     );
 }
