@@ -31,7 +31,7 @@ export const agentsRouter = createTRPCRouter({
         throw new TRPCError({ code: "NOT_FOUND", message: "Agent not found" });
       }
 
-      return updatedAgent;
+   return updatedAgent;
     }),
   //TODO: remove an agent, we need to implement a delete protectedProcedure
   remove: protectedProcedure

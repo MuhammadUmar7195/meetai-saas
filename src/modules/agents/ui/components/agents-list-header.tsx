@@ -7,6 +7,7 @@ import NewAgentsDialog from './new-agents-dialog';
 import { useAgentFilter } from '../../hooks/use-agents-filter';
 import { AgentsSearchFilter } from './agents-search-filter';
 import { DEFAULT_PAGE } from '@/constant';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 const ListHeader = () => {
   const [filter, setFilter] = useAgentFilter();
@@ -14,7 +15,7 @@ const ListHeader = () => {
 
   const isAnyFilterModified = !!filter.search;
 
-  const onClearFilter = ()=> {
+  const onClearFilter = () => {
     setFilter({
       search: '',
       page: DEFAULT_PAGE
@@ -32,15 +33,17 @@ const ListHeader = () => {
             New Agent
           </Button>
         </div>
-        <div className='flex items-center gap-x-2 p-1'>
-          <AgentsSearchFilter />
-          {isAnyFilterModified && (
-            <Button variant="outline" size="sm" onClick={onClearFilter}>
-              Clear Filter
-            </Button>
-          )}
-        </div>
-
+        <ScrollArea>
+          <div className='flex items-center gap-x-2 p-1'>
+            <AgentsSearchFilter />
+            {isAnyFilterModified && (
+              <Button variant="outline" size="sm" onClick={onClearFilter}>
+                Clear Filter
+              </Button>
+            )}
+          </div>
+          <ScrollBar orientation='horizontal' />
+        </ScrollArea>
       </div>
     </>
   )
