@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 
 import { agentSchema } from "../../schema";
-import { AgentRouterOutputs } from "../../type";
+import { AgentsGetOne } from "../../type";
 import { GenerateAvatar } from "@/components/generateAvatar";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -26,7 +26,7 @@ import { toast } from "sonner";
 interface AgentFormProps {
     onSuccess?: () => void;
     onCancel?: () => void;
-    initialValues?: AgentRouterOutputs
+    initialValues?: AgentsGetOne
 }
 
 export const AgentForm = ({ onSuccess, onCancel, initialValues }: AgentFormProps) => {

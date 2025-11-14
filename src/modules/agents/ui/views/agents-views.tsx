@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { LoadingStates } from "@/components/loading-states";
 import { ErrorState } from "@/components/error-state";
-import { DataTable } from "../components/data-table";
+import { DataTable } from "@/components/data-table";
 import { columns } from "../components/columns";
 import { EmptyState } from "@/components/empty-state";
 import { useAgentFilter } from "../../hooks/use-agents-filter";
