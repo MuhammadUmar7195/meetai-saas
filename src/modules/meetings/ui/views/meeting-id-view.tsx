@@ -16,6 +16,10 @@ import MeetingIdViewHeader from "../components/meeting-id-view-header";
 import { ErrorState } from "@/components/error-state";
 import { LoadingStates } from "@/components/loading-states";
 import UpdateMeetingDialog from "../components/update-meeting-dialog";
+import { UpcomingState } from "../components/upcoming-state";
+import { ActiveState } from "../components/active-state";
+import { CancelledState } from "../components/cancelled-state";
+import { ProcessingState } from "../components/processing-state";
 
 interface MeetingIdView {
     meetingId: string;
@@ -60,6 +64,12 @@ export const MeetingIdView = ({ meetingId }: MeetingIdView) => {
         await removeMeeting.mutateAsync({ id: meetingId });
     }
 
+    const isActive = data.status === 'active';
+    const isUpcoming = data.status === 'upcoming';
+    const isCancelled = data.status === 'canceled';
+    const isCompleted = data.status === 'active';
+    const isProcessing = data.status === 'processing';
+
     return (
         <>
             <RemoveConfirmation />
@@ -75,7 +85,27 @@ export const MeetingIdView = ({ meetingId }: MeetingIdView) => {
                     onEdit={() => setUpdateMeetingDialog(true)}
                     onRemove={handleRemove}
                 />
-                {JSON.stringify(data, null, 2)}
+                {isCancelled &&
+                    <CancelledState />
+                }
+                {isProcessing &&
+                    <ProcessingState />
+                }
+                {isCompleted &&
+                    <div>Completed</div>
+                }
+                {isActive &&
+                    <ActiveState
+                        meetingId={meetingId}
+                    />
+                }
+                {isUpcoming &&
+                    <UpcomingState
+                        meetingId={meetingId}
+                        onCancelMeeting={() => { }}
+                        isCancelling={false}
+                    />
+                }
             </div>
         </>
     )
