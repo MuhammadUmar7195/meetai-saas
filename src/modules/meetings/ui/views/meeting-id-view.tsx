@@ -20,6 +20,7 @@ import { UpcomingState } from "../components/upcoming-state";
 import { ActiveState } from "../components/active-state";
 import { CancelledState } from "../components/cancelled-state";
 import { ProcessingState } from "../components/processing-state";
+import { CompletedState } from "../components/completed-state";
 
 interface MeetingIdView {
     meetingId: string;
@@ -67,7 +68,7 @@ export const MeetingIdView = ({ meetingId }: MeetingIdView) => {
     const isActive = data.status === 'active';
     const isUpcoming = data.status === 'upcoming';
     const isCancelled = data.status === 'canceled';
-    const isCompleted = data.status === 'active';
+    const isCompleted = data.status === 'completed';
     const isProcessing = data.status === 'processing';
 
     return (
@@ -92,7 +93,7 @@ export const MeetingIdView = ({ meetingId }: MeetingIdView) => {
                     <ProcessingState />
                 }
                 {isCompleted &&
-                    <div>Completed</div>
+                    <CompletedState data={data} />
                 }
                 {isActive &&
                     <ActiveState

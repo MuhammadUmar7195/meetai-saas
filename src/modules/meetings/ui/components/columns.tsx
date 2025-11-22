@@ -15,16 +15,8 @@ import {
     ClockFadingIcon,
     LoaderIcon,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, formatDuration } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-
-function formatDuration(seconds: number) {
-    return humanizeDuration(seconds * 1000, {
-        largest: 1,
-        round: true,
-        units: ["d", "h", "m"]
-    });
-}
 
 
 const statusIconMap = {

@@ -32,7 +32,7 @@ const summarize = createAgent({
     - Feature X automatically does Y
     - Mention of integration with Z
 `.trim(),
-  model: openai({ model: "gpt-4o", apiKey: process.env.OPENAI_API_KEY! }),
+  model: openai({ model: "gpt-4o-mini", apiKey: process.env.OPENAI_API_KEY! }), 
 });
 
 /**
@@ -116,11 +116,10 @@ export const meetingProcessing = inngest.createFunction(
       }
     );
 
-    const { output } = await step.run("generate_summary", async () => {
-      return await summarize.run(
-        "Summarize the following: " + JSON.stringify(transcriptWithSpeaker)
-      );
-    });
+    // Generate summary using AI agent (agent-kit handles its own steps internally)
+    const { output } = await summarize.run(
+      "Summarize the following: " + JSON.stringify(transcriptWithSpeaker)
+    );
 
     // Save the summary to the database and mark meeting as completed
     await step.run("save_summary", async () => {
