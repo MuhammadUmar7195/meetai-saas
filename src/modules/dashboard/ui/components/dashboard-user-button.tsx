@@ -83,7 +83,7 @@ const DashboardUserButton = () => {
                         </DrawerTitle>
                     </DrawerHeader>
                     <DrawerFooter>
-                        <Button variant="outline" onClick={() => { }}>
+                        <Button variant="outline" onClick={() => authClient.customer.portal() }>
                             <PiCreditCardFill className="size-4 ml-2" />
                             Billing
                         </Button>
@@ -133,7 +133,7 @@ const DashboardUserButton = () => {
                         </div>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="cursor-pointer flex items-center justify-between">
+                    <DropdownMenuItem onClick={() => authClient.customer.portal()} className="cursor-pointer flex items-center justify-between">
                         Billing
                         <PiCreditCardFill className="size-4" />
                     </DropdownMenuItem>

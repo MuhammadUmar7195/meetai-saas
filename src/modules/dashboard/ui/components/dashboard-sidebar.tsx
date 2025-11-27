@@ -17,6 +17,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { BotIcon, StarIcon, VideoIcon } from "lucide-react";
 import DashboardUserButton from "./dashboard-user-button";
+import { DashboardTrial } from "./dashboard-trial";
 
 const firstSection = [
   {
@@ -111,6 +112,7 @@ export const DashboardSidebar = () => {
           </SidebarGroup>
         </SidebarContent>
         <SidebarFooter className="text-white">
+          <DashboardTrial />
           <DashboardUserButton />
         </SidebarFooter>
       </Sidebar>
