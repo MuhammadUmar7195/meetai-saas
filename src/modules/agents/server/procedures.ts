@@ -1,10 +1,14 @@
 import { z } from "zod";
 import { db } from "@/db";
 
-import { agents } from "@/db/schema";
-import { createTRPCRouter, premiumProtectedProcedure, protectedProcedure } from "@/trpc/init";
+import { agents, meetings } from "@/db/schema";
+import {
+  createTRPCRouter,
+  premiumProtectedProcedure,
+  protectedProcedure,
+} from "@/trpc/init";
 import { agentSchema, agentUpdateSchema } from "../schema";
-import { and, count, desc, eq, getTableColumns, ilike, sql } from "drizzle-orm";
+import { and, count, desc, eq, getTableColumns, ilike } from "drizzle-orm";
 
 import {
   DEFAULT_PAGE,
@@ -31,7 +35,7 @@ export const agentsRouter = createTRPCRouter({
         throw new TRPCError({ code: "NOT_FOUND", message: "Agent not found" });
       }
 
-   return updatedAgent;
+      return updatedAgent;
     }),
   //TODO: remove an agent, we need to implement a delete protectedProcedure
   remove: protectedProcedure
@@ -55,7 +59,7 @@ export const agentsRouter = createTRPCRouter({
       const [existingAgent] = await db
         .select({
           ...getTableColumns(agents),
-          meetingCount: sql<number>`5`,
+          meetingCount: db.$count(meetings, eq(agents.id, meetings.agentId)),
         })
         .from(agents)
         .where(
@@ -87,7 +91,7 @@ export const agentsRouter = createTRPCRouter({
       const data = await db
         .select({
           ...getTableColumns(agents),
-          meetingCount: sql<number>`6`,
+          meetingCount: db.$count(meetings, eq(agents.id, meetings.agentId)),
         })
         .from(agents)
         .where(
